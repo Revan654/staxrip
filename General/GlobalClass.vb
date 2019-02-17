@@ -582,30 +582,32 @@ Public Class GlobalClass
         Dim OSName = Registry.LocalMachine.GetString("SOFTWARE\Microsoft\Windows NT\CurrentVersion", "ProductName")
         If p.SourceFile <> "" Then
             p.TempDir = Macro.Expand(p.TempDir)
-            If OSName.Contains("Windows 10") Then
-                Try
-                    If p.SourceFile.Dir.EndsWith("_temp\") Then
-                        p.TempDir = p.SourceFile.Dir
-                    Else
-                        Dim base = p.SourceFile.Base
-                        p.TempDir = p.SourceFile.Dir + base + "_temp\"
-                    End If
-                Catch ex As Exception
-                    MsgInfo(ex.Message)
-                End Try
-            Else ''Will Only Trigger For Older OS's.                
-                Try
-                    If p.SourceFile.Dir.EndsWith("_temp\") Then
-                        p.TempDir = p.SourceFile.Dir
-                    Else
-                        Dim base = p.SourceFile.Base
-                        If base.Length > 30 Then base = base.Shorten(15) + "..."
-                        p.TempDir = p.SourceFile.Dir + base + "_temp\"
-                    End If
-                Catch ex As Exception
-                    MsgInfo(ex.Message)
-                End Try
-            End If
+            If p.TempDir = "" Then                                                                            
+                If OSName.Contains("Windows 10") Then
+                    Try
+                        If p.SourceFile.Dir.EndsWith("_temp\") Then
+                            p.TempDir = p.SourceFile.Dir
+                        Else
+                            Dim base = p.SourceFile.Base
+                            p.TempDir = p.SourceFile.Dir + base + "_temp\"
+                        End If
+                    Catch ex As Exception
+                        MsgInfo(ex.Message)
+                    End Try
+                Else ''Will Only Trigger For Older OS's.                
+                    Try
+                        If p.SourceFile.Dir.EndsWith("_temp\") Then
+                            p.TempDir = p.SourceFile.Dir
+                        Else
+                            Dim base = p.SourceFile.Base
+                            If base.Length > 30 Then base = base.Shorten(15) + "..."
+                            p.TempDir = p.SourceFile.Dir + base + "_temp\"
+                        End If
+                    Catch ex As Exception
+                        MsgInfo(ex.Message)
+                    End Try
+                End If
+            End If                                                                                                
 
             'Source Code Running Windows 7 & 8.1(Saved Just Incase):
 
