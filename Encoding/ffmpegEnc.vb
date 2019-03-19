@@ -153,8 +153,8 @@ Public Class ffmpegEnc
 
         Property Decoder As New OptionParam With {
             .Text = "Decoder",
-            .Options = {"AviSynth/VapourSynth", "Intel", "DXVA2", "Nvidia"},
-            .Values = {"avs", "qsv", "dxva2", "cuvid"}}
+            .Options = {"AviSynth/VapourSynth", "Intel", "DXVA2", "CUVID", "NVDEC"},
+            .Values = {"avs", "qsv", "dxva2", "cuvid", "nvdec"}}
 
         Property Custom As New StringParam With {
             .Text = "Custom",
@@ -211,6 +211,9 @@ Public Class ffmpegEnc
                 Case "cuvid"
                     sourcePath = p.LastOriginalSourceFile
                     ret += " -hwaccel cuvid"
+                Case "nvdec"
+                    sourcePath = p.LastOriginalSourceFile
+                    ret += " -hwaccel nvdec"                                                                                        
             End Select
 
             If includePaths Then ret += " -i " + sourcePath.Escape
