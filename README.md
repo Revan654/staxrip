@@ -1,3 +1,5 @@
+**This fork has been superceded by <https://github.com/staxrip/staxrip>**
+
 ![alt text](https://github.com/Revan654/staxrip/blob/master/docs/screenshots/_Main.png "Main Window")
 
 # Pipeline
